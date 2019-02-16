@@ -26,7 +26,7 @@ def compileProject():
        if completeProcess.returncode != 0:
             print(fg.red + "make failed in: " + target)
             print(str(completeProcess.stderr) + fg.rs)
-            exit(1o1:)
+            exit(1)
        else:
             print(fg.green + target + " built!" + fg.rs)
 
