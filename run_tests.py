@@ -2,7 +2,6 @@ import sys
 import os
 import subprocess
 import re
-from sty import fg, bg, ef, rs, RgbFg
 
 
 def compileProject():
@@ -24,11 +23,11 @@ def compileProject():
     for target in makeTargets:
        completeProcess = subprocess.run("make " + target, capture_output=True, text=True, shell=True)
        if completeProcess.returncode != 0:
-            print(fg.red + "make failed in: " + target)
-            print(str(completeProcess.stderr) + fg.rs)
+            print("make failed in: " + target)
+            print(str(completeProcess.stderr))
             exit(1)
        else:
-            print(fg.green + target + " built!" + fg.rs)
+            print(target + " built!")
 
     return executionTargets
 
@@ -43,12 +42,12 @@ def runTest(execTarget: str):
         with open("tests/output/" + execTarget + "_out_correct") as correctFile:
             correctText = correctFile.read()
             if correctText != completeProcess.stdout:
-                print(fg.red + execTarget + " differs from correct file!" + fg.rs)
+                print(execTarget + " differs from correct file!")
                 return 2
             else:
                 return 0
     else:
-        print(fg.yellow + "No matching correct file found for " + execTarget + ", skipping" + fg.rs)
+        print("No matching correct file found for " + execTarget + ", skipping")
         return 1
 
 def runAllTests(executionTargets: list):
