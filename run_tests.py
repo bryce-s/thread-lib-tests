@@ -52,16 +52,21 @@ def runTest(execTarget: str):
         return 1
 
 def runAllTests(executionTargets: list):
+    totalTests = 0
+    failedCount = 0
     for target in executionTargets:
         for i in range(0, 10):
+            totalTests += 1
             res = runTest(target)
             if res == 1 or res > 1:
+                failedCount += 1
                 break
-
+    print("Ran " + totalTests, ", there were " + failedCount + " failures.")
 
 
 def main():
     """entry point for test program"""
-    compileProject()
+    execStrs = compileProject()
+    runAllTests(execStrs)
 
 main()
